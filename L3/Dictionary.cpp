@@ -20,7 +20,7 @@ void Dictionary::push(const Word& word) {
     words[count++] = word;
 }
 
-Dictionary::Dictionary(const Word* arr, size_t n) {
+Dictionary::Dictionary(const Word* arr, const size_t n) {
     if (n > 0) {
         reallocate(n);
         for (size_t i = 0; i < n; ++i) {
@@ -80,17 +80,16 @@ Dictionary Dictionary::operator-(const std::string& ukrWord) const {
     throw std::runtime_error("Слово '" + ukrWord + "' не знайдено у словнику!");
 }
 
-void Dictionary::sort() {
+void Dictionary::sort() const {
     sort(SortBy::Ukrainian);
 }
 
-void Dictionary::sort(SortBy criterion) {
-    // Сортування вставками
+void Dictionary::sort(const SortBy criterion) const {
     for (size_t i = 1; i < count; ++i) {
         Word key = words[i];
         size_t j = i;
         while (j > 0) {
-            bool less = (criterion == SortBy::Ukrainian)
+            const bool less = (criterion == SortBy::Ukrainian)
                             ? (key < words[j - 1])
                             : (key.getEng() < words[j - 1].getEng());
             if (!less) { break; }

@@ -1,6 +1,5 @@
 #pragma once
 #include "Word.h"
-#include <cstddef>
 #include <string>
 
 enum class SortBy { Ukrainian, English };
@@ -26,8 +25,8 @@ public:
     Dictionary operator+(const Word& word) const;
     Dictionary operator-(const std::string& ukrWord) const;
 
-    void sort();
-    void sort(SortBy criterion);
+    void sort() const;
+    void sort(SortBy criterion) const;
 
     Word find(const std::string& ukrWord) const;
 

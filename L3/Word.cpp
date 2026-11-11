@@ -47,6 +47,6 @@ bool Word::operator>=(const Word &other) const {
 }
 
 std::ostream &operator<<(std::ostream &os, const Word &word) {
-    os << " " << word.ukrWord << " " << word.engWord;
+    os << word.ukrWord << " " << word.engWord;
     return os;
 }
