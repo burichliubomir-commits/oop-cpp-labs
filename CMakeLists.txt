@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.10)
+project(oop_cpp_labs CXX)
+
+add_subdirectory(L2)
+add_subdirectory(L3)
+add_subdirectory(L4)
+add_subdirectory(L5)
+add_subdirectory(L6)
+add_subdirectory(L7)
+add_subdirectory(L8)

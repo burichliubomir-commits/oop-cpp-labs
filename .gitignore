@@ -1,0 +1,11 @@
+# JetBrains CLion
+.idea/
+
+# CMake build directories (ігноруватиме cmake-build-debug у кожній L2, L3, L4)
+cmake-build-*/
+build/
+
+# macOS & compiled files
+.DS_Store
+*.o
+*.out
