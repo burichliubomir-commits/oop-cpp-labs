@@ -1,5 +1,7 @@
 #include "Dictionary.h"
 
+#include <cstdio>
+#include <cstring>
 #include <iostream>
 #include <stdexcept>
 
@@ -66,10 +68,10 @@ Dictionary Dictionary::operator+(const Word& word) const {
     return result;
 }
 
-Dictionary Dictionary::operator-(const std::string& ukrWord) const {
+Dictionary Dictionary::operator-(const char* ukrWord) const {
     Dictionary result = *this;
     for (size_t i = 0; i < result.count; ++i) {
-        if (result.words[i].getUkr() == ukrWord) {
+        if (std::strcmp(result.words[i].getUkr(), ukrWord) == 0) {
             for (size_t j = i; j + 1 < result.count; ++j) {
                 result.words[j] = result.words[j + 1];
             }
@@ -77,7 +79,9 @@ Dictionary Dictionary::operator-(const std::string& ukrWord) const {
             return result;
         }
     }
-    throw std::runtime_error("Слово '" + ukrWord + "' не знайдено у словнику!");
+    char errMsg[256];
+    std::snprintf(errMsg, sizeof(errMsg), "Слово '%s' не знайдено у словнику!", ukrWord);
+    throw std::runtime_error(errMsg);
 }
 
 void Dictionary::sort() const {
@@ -91,7 +95,7 @@ void Dictionary::sort(const SortBy criterion) const {
         while (j > 0) {
             const bool less = (criterion == SortBy::Ukrainian)
                             ? (key < words[j - 1])
-                            : (key.getEng() < words[j - 1].getEng());
+                            : (std::strcmp(key.getEng(), words[j - 1].getEng()) < 0);
             if (!less) { break; }
             words[j] = words[j - 1];
             --j;
@@ -100,13 +104,15 @@ void Dictionary::sort(const SortBy criterion) const {
     }
 }
 
-Word Dictionary::find(const std::string& ukrWord) const {
+Word Dictionary::find(const char* ukrWord) const {
     for (size_t i = 0; i < count; ++i) {
-        if (words[i].getUkr() == ukrWord) {
+        if (std::strcmp(words[i].getUkr(), ukrWord) == 0) {
             return words[i];
         }
     }
-    throw std::runtime_error("Слово '" + ukrWord + "' не знайдено у словнику!");
+    char errMsg[256];
+    std::snprintf(errMsg, sizeof(errMsg), "Слово '%s' не знайдено у словнику!", ukrWord);
+    throw std::runtime_error(errMsg);
 }
 
 std::ostream& operator<<(std::ostream& os, const Dictionary& dict) {

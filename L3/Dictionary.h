@@ -1,6 +1,5 @@
 #pragma once
 #include "Word.h"
-#include <string>
 
 enum class SortBy { Ukrainian, English };
 
@@ -23,12 +22,12 @@ public:
     size_t size() const { return count; }
 
     Dictionary operator+(const Word& word) const;
-    Dictionary operator-(const std::string& ukrWord) const;
+    Dictionary operator-(const char* ukrWord) const;
 
     void sort() const;
     void sort(SortBy criterion) const;
 
-    Word find(const std::string& ukrWord) const;
+    Word find(const char* ukrWord) const;
 
     friend std::ostream& operator<<(std::ostream& os, const Dictionary& dict);
 };

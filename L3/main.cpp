@@ -1,5 +1,6 @@
+#include <cstring>
+#include <iomanip>
 #include <iostream>
-#include <string>
 #include <stdexcept>
 #include "Word.h"
 #include "Dictionary.h"
@@ -67,17 +68,20 @@ int main() {
                 break;
             }
             case 3: {
-                std::string ukr, eng, details;
+                char ukr[256];
+                char eng[256];
+                char details[1024];
+
                 std::cout << "Введіть українське слово: ";
-                std::cin >> ukr;
+                std::cin >> std::setw(sizeof(ukr)) >> ukr;
                 std::cout << "Введіть англійський переклад: ";
-                std::cin >> eng;
+                std::cin >> std::setw(sizeof(eng)) >> eng;
 
                 std::cout << "Введіть опис (Enter, щоб пропустити): ";
-                std::cin.ignore();
-                std::getline(std::cin, details);
+                std::cin.ignore(10000, '\n');
+                std::cin.getline(details, sizeof(details));
 
-                if (details.empty()) {
+                if (std::strlen(details) == 0) {
                     dict = dict + Word(ukr, eng);
                 } else {
                     dict = dict + Word(ukr, eng, details);
@@ -87,9 +91,9 @@ int main() {
                 break;
             }
             case 4: {
-                std::string ukr;
+                char ukr[256];
                 std::cout << "Введіть українське слово для видалення: ";
-                std::cin >> ukr;
+                std::cin >> std::setw(sizeof(ukr)) >> ukr;
                 try {
                     dict = dict - ukr;
                     std::cout << "Видалення слова '" << ukr << "' виконано.\n";
@@ -99,9 +103,9 @@ int main() {
                 break;
             }
             case 5: {
-                std::string ukr;
+                char ukr[256];
                 std::cout << "Введіть українське слово для пошуку: ";
-                std::cin >> ukr;
+                std::cin >> std::setw(sizeof(ukr)) >> ukr;
 
                 try {
                     Word found = dict.find(ukr);
@@ -120,11 +124,12 @@ int main() {
                 break;
             }
             case 6: {
-                std::string ukr1, ukr2;
+                char ukr1[256];
+                char ukr2[256];
                 std::cout << "Введіть перше українське слово: ";
-                std::cin >> ukr1;
+                std::cin >> std::setw(sizeof(ukr1)) >> ukr1;
                 std::cout << "Введіть друге українське слово: ";
-                std::cin >> ukr2;
+                std::cin >> std::setw(sizeof(ukr2)) >> ukr2;
 
                 Word word1(ukr1, "Temp1");
                 Word word2(ukr2, "Temp2");
