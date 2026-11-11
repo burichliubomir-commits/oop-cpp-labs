@@ -84,23 +84,19 @@ Dictionary Dictionary::operator-(const char* ukrWord) const {
     throw std::runtime_error(errMsg);
 }
 
-void Dictionary::sort() const {
-    sort(SortBy::Ukrainian);
-}
+void Dictionary::sort(const bool byEnglish) const {
+    for (size_t i = 0; i < count; ++i) {
+        for (size_t j = i + 1; j < count; ++j) {
+            const bool needSwap = byEnglish
+                ? (std::strcmp(words[j].getEng(), words[i].getEng()) < 0)
+                : (words[j] < words[i]);
 
-void Dictionary::sort(const SortBy criterion) const {
-    for (size_t i = 1; i < count; ++i) {
-        Word key = words[i];
-        size_t j = i;
-        while (j > 0) {
-            const bool less = (criterion == SortBy::Ukrainian)
-                            ? (key < words[j - 1])
-                            : (std::strcmp(key.getEng(), words[j - 1].getEng()) < 0);
-            if (!less) { break; }
-            words[j] = words[j - 1];
-            --j;
+            if (needSwap) {
+                Word const temp = words[i];
+                words[i] = words[j];
+                words[j] = temp;
+            }
         }
-        words[j] = key;
     }
 }
 

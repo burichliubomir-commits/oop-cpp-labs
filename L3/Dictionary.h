@@ -1,8 +1,6 @@
 #pragma once
 #include "Word.h"
 
-enum class SortBy { Ukrainian, English };
-
 class Dictionary {
 private:
     Word* words = nullptr;
@@ -24,8 +22,7 @@ public:
     Dictionary operator+(const Word& word) const;
     Dictionary operator-(const char* ukrWord) const;
 
-    void sort() const;
-    void sort(SortBy criterion) const;
+    void sort(bool byEnglish = false) const;
 
     Word find(const char* ukrWord) const;
 

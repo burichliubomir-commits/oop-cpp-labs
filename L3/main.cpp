@@ -58,11 +58,7 @@ int main() {
                 int mode = 0;
                 std::cout << "Сортувати за: 1 - українським словом, 2 - англійським: ";
                 std::cin >> mode;
-                if (mode == 2) {
-                    dict.sort(SortBy::English);
-                } else {
-                    dict.sort();
-                }
+                dict.sort(mode == 2);
                 std::cout << "\nСловник успішно відсортовано за абеткою!\n";
                 std::cout << dict << "\n";
                 break;
