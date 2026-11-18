@@ -1,7 +1,5 @@
-#include <cstring>
 #include <iomanip>
 #include <iostream>
-#include <stdexcept>
 #include "Word.h"
 #include "Dictionary.h"
 
