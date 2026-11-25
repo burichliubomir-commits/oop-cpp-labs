@@ -8,4 +8,6 @@ add_executable(L4
         main.cpp
         SportGame.h
         SportGame.cpp
+        Football.h
+        Football.cpp
 )
