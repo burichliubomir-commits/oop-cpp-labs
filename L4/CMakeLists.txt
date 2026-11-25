@@ -4,4 +4,8 @@ project(L4 CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(L4 main.cpp)
+add_executable(L4
+        main.cpp
+        SportGame.h
+        SportGame.cpp
+)
